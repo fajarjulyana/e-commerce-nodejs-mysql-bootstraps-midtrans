@@ -54,7 +54,7 @@ Ikuti langkah-langkah di bawah ini untuk menginstal dan menjalankan aplikasi di 
     Mulai server aplikasi dengan perintah berikut:
 
     ```bash
-    node server.js
+    npm start
     ```
 
 6. **Akses aplikasi:**
