@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome CSS for icons (optional) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    .footer {
+      background-color: #f8f9fa;
+      padding: 20px 0;
+    }
+    .footer p {
+      margin: 0;
+    }
+    .cart-item {
+      margin-bottom: 20px;
+    }
+    .btn-custom {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+    }
+    .btn-custom:hover {
+      background-color: #0056b3;
+      color: #fff;
+    }
+    .btn-danger-custom {
+      background-color: #dc3545;
+      color: #fff;
+      border: none;
+    }
+    .btn-danger-custom:hover {
+      background-color: #c82333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">E-Commerce</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/products">Products</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/cart">Cart <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container mt-4">
+    <h1 class="mb-4">Your Cart</h1>
+    <ul class="list-group mb-4">
+      <% cartItems.forEach(item => { %>
+        <li class="list-group-item cart-item">
+          <h5 class="mb-1"><%= item.Product.name %></h5>
+          <p class="mb-1">Price: $<%= item.Product.price %></p>
+          <p class="mb-1">Quantity: <%= item.quantity %></p>
+          <p class="mb-1">Subtotal: $<%= (item.quantity * item.Product.price).toFixed(2) %></p>
+          <!-- Form untuk menghapus item -->
+          <form action="/cart/delete" method="POST" class="d-inline">
+            <input type="hidden" name="cartItemId" value="<%= item.id %>">
+            <button type="submit" class="btn btn-danger btn-danger-custom">Delete</button>
+          </form>
+        </li>
+      <% }); %>
+    </ul>
+
+    <hr>
+    <h3>Total Items: <%= totalItems %></h3>
+    <h3>Total Price: $<%= totalPrice.toFixed(2) %></h3>
+
+    <!-- Form untuk checkout -->
+    <form action="/checkout" method="POST" class="mt-4">
+      <button type="submit" class="btn btn-custom">Proceed to Checkout</button>
+    </form>
+    
+    <a href="/" class="btn btn-link mt-3">Back to Product List</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <p>&copy; 2024 E-Commerce. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
